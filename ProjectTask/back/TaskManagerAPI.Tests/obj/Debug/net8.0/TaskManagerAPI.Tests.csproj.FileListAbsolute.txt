@@ -1,0 +1,6 @@
+C:\Projetos\Projeto Blazor\ProjectTask\TaskManagerAPI.Tests\bin\Debug\net8.0\CoverletSourceRootsMapping_TaskManagerAPI.Tests
+C:\Projetos\Projeto Blazor\ProjectTask\TaskManagerAPI.Tests\obj\Debug\net8.0\TaskManagerAPI.Tests.csproj.AssemblyReference.cache
+C:\Projetos\Projeto Blazor\ProjectTask\TaskManagerAPI.Tests\obj\Debug\net8.0\TaskManagerAPI.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projetos\Projeto Blazor\ProjectTask\TaskManagerAPI.Tests\obj\Debug\net8.0\TaskManagerAPI.Tests.AssemblyInfoInputs.cache
+C:\Projetos\Projeto Blazor\ProjectTask\TaskManagerAPI.Tests\obj\Debug\net8.0\TaskManagerAPI.Tests.AssemblyInfo.cs
+C:\Projetos\Projeto Blazor\ProjectTask\TaskManagerAPI.Tests\obj\Debug\net8.0\TaskManagerAPI.Tests.csproj.CoreCompileInputs.cache
