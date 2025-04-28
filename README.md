@@ -34,3 +34,7 @@ Instale as dependências:
 npm install
 ng serve
 Acesse: http://localhost:4200
+
+
+Baixar tb a parte de Front 
+https://github.com/ketymjj/TaskManager-App
