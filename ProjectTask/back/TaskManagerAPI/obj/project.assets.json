@@ -3672,11 +3672,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projetos1\\ProjectTask\\back\\taskManagerApi\\TaskManagerAPI.csproj",
+      "projectUniqueName": "C:\\ProjetosEmpresas\\ProjectTask\\ProjectTask\\ProjectTask\\back\\taskManagerApi\\TaskManagerAPI.csproj",
       "projectName": "TaskManagerAPI",
-      "projectPath": "C:\\Projetos1\\ProjectTask\\back\\taskManagerApi\\TaskManagerAPI.csproj",
+      "projectPath": "C:\\ProjetosEmpresas\\ProjectTask\\ProjectTask\\ProjectTask\\back\\taskManagerApi\\TaskManagerAPI.csproj",
       "packagesPath": "C:\\Users\\Windows\\.nuget\\packages\\",
-      "outputPath": "C:\\Projetos1\\ProjectTask\\back\\taskManagerApi\\obj\\",
+      "outputPath": "C:\\ProjetosEmpresas\\ProjectTask\\ProjectTask\\ProjectTask\\back\\taskManagerApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

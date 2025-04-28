@@ -13,6 +13,7 @@ namespace TaskManagerAPI.Data
 
         public DbSet<Projeto> Projects { get; set; }
         public DbSet<Tarefa> Tasks { get; set; }
+        public DbSet<TarefaHistorico> TarefasHistoricos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
