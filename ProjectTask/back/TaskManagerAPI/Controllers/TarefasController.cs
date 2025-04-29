@@ -71,36 +71,97 @@ namespace TaskManagerAPI.Controllers
         }
 
         // PUT: api/tarefas/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTarefa(int id, TarefaDto dto)
-        {
-            if (id != dto.Id)
-                return BadRequest("ID da URL diferente do corpo da requisição.");
-
-            var tarefa = await _context.Tasks.FindAsync(id);
-            if (tarefa == null)
-                return NotFound();
-
-            if (dto.Prioridade != tarefa.Prioridade)
-             return BadRequest("Não é permitido alterar a prioridade da tarefa após sua criação.");
-
-            tarefa.Titulo = dto.Titulo;
-            tarefa.Descricao = dto.Descricao;
-            tarefa.DataCriacao = DateTime.UtcNow;
-            tarefa.DataConclusao = dto.DataConclusao;
-            tarefa.Status = dto.Status;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return StatusCode(500, "Erro ao atualizar a tarefa.");
-            }
-
-            return NoContent();
-        }
+      [HttpPut("{id}")]
+      public async Task<IActionResult> PutTarefa(int id, TarefaDto dto)
+      {
+          if (id != dto.Id)
+              return BadRequest("ID da URL diferente do corpo da requisição.");
+      
+          var tarefa = await _context.Tasks.FindAsync(id);
+          if (tarefa == null)
+              return NotFound();
+      
+          if (dto.Prioridade != tarefa.Prioridade)
+              return BadRequest("Não é permitido alterar a prioridade da tarefa após sua criação.");
+      
+          // Lista para armazenar históricos de mudanças
+          var historicos = new List<TarefaHistorico>();
+      
+          // Verifica cada campo que pode ter mudado
+          if (tarefa.Titulo != dto.Titulo)
+          {
+              historicos.Add(new TarefaHistorico
+              {
+                  TarefaId = tarefa.Id,
+                  CampoAlterado = "Titulo",
+                  ValorAnterior = tarefa.Titulo,
+                  ValorNovo = dto.Titulo,
+                  DataModificacao = DateTime.UtcNow
+                  
+              });
+              tarefa.Titulo = dto.Titulo;
+          }
+      
+          if (tarefa.Descricao != dto.Descricao)
+          {
+              historicos.Add(new TarefaHistorico
+              {
+                  TarefaId = tarefa.Id,
+                  CampoAlterado = "Descricao",
+                  ValorAnterior = tarefa.Descricao,
+                  ValorNovo = dto.Descricao,
+                  DataModificacao = DateTime.Now
+              });
+              tarefa.Descricao = dto.Descricao;
+          }
+      
+          if (tarefa.DataConclusao != dto.DataConclusao)
+          {
+              historicos.Add(new TarefaHistorico
+              {
+                  TarefaId = tarefa.Id,
+                  CampoAlterado = "DataConclusao",
+                  ValorAnterior = tarefa.DataConclusao?.ToString("o"), // formato ISO
+                  ValorNovo = dto.DataConclusao?.ToString("o"),
+                  DataModificacao = DateTime.UtcNow
+              });
+              tarefa.DataConclusao = dto.DataConclusao;
+          }
+      
+          if (tarefa.Status != dto.Status)
+          {
+              historicos.Add(new TarefaHistorico
+              {
+                  TarefaId = tarefa.Id,
+                  CampoAlterado = "Status",
+                  ValorAnterior = tarefa.Status,
+                  ValorNovo = dto.Status,
+                  DataModificacao = DateTime.UtcNow
+              });
+              tarefa.Status = dto.Status;
+          }
+      
+          tarefa.DataCriacao = DateTime.UtcNow; // Isso não deveria mudar numa atualização, mas se quiser manter...
+      
+          try
+          {
+              // Salva as alterações da tarefa
+              await _context.SaveChangesAsync();
+      
+              // Se houver histórico para registrar
+              if (historicos.Any())
+              {
+                  _context.TarefasHistoricos.AddRange(historicos);
+                  await _context.SaveChangesAsync();
+              }
+          }
+          catch (DbUpdateConcurrencyException)
+          {
+              return StatusCode(500, "Erro ao atualizar a tarefa.");
+          }
+      
+          return NoContent();
+       }
 
         // DELETE: api/tarefas/5
         [HttpDelete("{id}")]

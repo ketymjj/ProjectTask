@@ -22,5 +22,7 @@ namespace TaskManagerAPI.Entities
         [JsonIgnore] // Evita o ciclo
         public Projeto Projeto { get; set; } 
 
+         public ICollection<TarefaHistorico> Historicos { get; set; }
+
     }
 }

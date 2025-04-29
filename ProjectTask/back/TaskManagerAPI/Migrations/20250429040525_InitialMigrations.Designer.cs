@@ -11,7 +11,7 @@ using TaskManagerAPI.Data;
 namespace TaskManagerAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250426005948_InitialMigrations")]
+    [Migration("20250429040525_InitialMigrations")]
     partial class InitialMigrations
     {
         /// <inheritdoc />
@@ -80,6 +80,37 @@ namespace TaskManagerAPI.Migrations
                     b.ToTable("Tasks");
                 });
 
+            modelBuilder.Entity("TaskManagerAPI.Entities.TarefaHistorico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CampoAlterado")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataModificacao")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TarefaId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ValorAnterior")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ValorNovo")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TarefaId");
+
+                    b.ToTable("TarefasHistoricos");
+                });
+
             modelBuilder.Entity("TaskManagerAPI.Entities.Tarefa", b =>
                 {
                     b.HasOne("TaskManagerAPI.Entities.Projeto", "Projeto")
@@ -91,9 +122,25 @@ namespace TaskManagerAPI.Migrations
                     b.Navigation("Projeto");
                 });
 
+            modelBuilder.Entity("TaskManagerAPI.Entities.TarefaHistorico", b =>
+                {
+                    b.HasOne("TaskManagerAPI.Entities.Tarefa", "Tarefa")
+                        .WithMany("Historicos")
+                        .HasForeignKey("TarefaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tarefa");
+                });
+
             modelBuilder.Entity("TaskManagerAPI.Entities.Projeto", b =>
                 {
                     b.Navigation("Tarefas");
+                });
+
+            modelBuilder.Entity("TaskManagerAPI.Entities.Tarefa", b =>
+                {
+                    b.Navigation("Historicos");
                 });
 #pragma warning restore 612, 618
         }

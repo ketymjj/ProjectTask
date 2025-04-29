@@ -93,10 +93,6 @@ namespace TaskManagerAPI.Migrations
                     b.Property<int>("TarefaId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("UsuarioModificador")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("ValorAnterior")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -126,7 +122,7 @@ namespace TaskManagerAPI.Migrations
             modelBuilder.Entity("TaskManagerAPI.Entities.TarefaHistorico", b =>
                 {
                     b.HasOne("TaskManagerAPI.Entities.Tarefa", "Tarefa")
-                        .WithMany()
+                        .WithMany("Historicos")
                         .HasForeignKey("TarefaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -137,6 +133,11 @@ namespace TaskManagerAPI.Migrations
             modelBuilder.Entity("TaskManagerAPI.Entities.Projeto", b =>
                 {
                     b.Navigation("Tarefas");
+                });
+
+            modelBuilder.Entity("TaskManagerAPI.Entities.Tarefa", b =>
+                {
+                    b.Navigation("Historicos");
                 });
 #pragma warning restore 612, 618
         }

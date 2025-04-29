@@ -29,6 +29,11 @@ namespace TaskManagerAPI.Data
                       .HasForeignKey(t => t.ProjetoId);
             });
 
+              modelBuilder.Entity<TarefaHistorico>()
+                .HasOne(h => h.Tarefa)
+                .WithMany(t => t.Historicos)
+                 .HasForeignKey(h => h.TarefaId);
+
         }
     }
 }
